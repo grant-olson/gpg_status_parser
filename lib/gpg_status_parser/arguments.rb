@@ -1,4 +1,5 @@
-module GPGStatusParser
+module GPGStatusParser::Arguments
+
   NO_WHITESPACE = "[^\s]+"
 
   ARGUMENTS = {
@@ -67,5 +68,31 @@ module GPGStatusParser
     "<total>"=>NO_WHITESPACE,
     "<fname>"=>NO_WHITESPACE,
     "<pid>"=>NO_WHITESPACE}
+
+  def self.extract_expected_argument argument_string
+    argument_string = argument_string.strip
+
+    return [nil, nil] if argument_string.empty?
+    
+    raise "Optional Args not yet supported" if argument_string[0] == "["
+
+    matches = /<([^>]+)>(.*)/.match(argument_string)
+    arg = matches[1].gsub(" ","_").intern
+    rest = matches[2]
+
+    [arg, rest]
+  end
+  
+  def self.extract_expected_arguments argument_string
+    args = []
+    first, rest = extract_expected_argument(argument_string)
+    
+    while (first || rest)
+      args << first
+      first, rest = extract_expected_argument(rest)
+    end
+
+    args
+  end
 
 end
