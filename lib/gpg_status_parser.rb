@@ -1,4 +1,5 @@
 require 'gpg_status_parser/status_codes'
+require 'gpg_status_parser/arguments'
 
 module GPGStatusParser
   class NotGPGStatus < StandardError
@@ -19,7 +20,9 @@ module GPGStatusParser
       @status = match[1].intern
       raise InvalidStatus if !STATUS_CODES.keys.include?(@status)
 
-      @args = match[2]
+      expected_arg_string = GPGStatusParser::STATUS_CODES[@status]
+      expected_args = GPGStatusParser::Arguments.extract_expected_arguments(expected_arg_string)
+      @args = GPGStatusParser::Arguments.extract_argument_values(expected_args, match[2])
     end
   end
 end
