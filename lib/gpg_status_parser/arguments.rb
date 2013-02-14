@@ -1,10 +1,13 @@
 module GPGStatusParser::Arguments
 
+  # Regexps to extract arguments should have two matchers, the actual
+  # argument value and the rest minus whitespace
   NO_WHITESPACE = /([^\s]+)(?: (.*))?/
+  USERNAME = /(.+)()$/
 
   ARGUMENTS = {
     :long_keyid_or_fpr => NO_WHITESPACE,
-    :username => NO_WHITESPACE,
+    :username => USERNAME,
     :keyid => NO_WHITESPACE,
     :pkalgo => NO_WHITESPACE,
     :hashalgo => NO_WHITESPACE,
