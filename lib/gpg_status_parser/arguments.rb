@@ -2,7 +2,7 @@ module GPGStatusParser::Arguments
 
   # Regexps to extract arguments should have two matchers, the actual
   # argument value and the rest minus whitespace
-  NO_WHITESPACE = /([^\s]+)(?: (.*))?/
+  NO_WHITESPACE = /([^\s]+)(.*)?/
   USERNAME = /(.+)()$/
 
   ARGUMENTS = {
@@ -52,6 +52,7 @@ module GPGStatusParser::Arguments
     :fingerprint_in_hex => NO_WHITESPACE,
     :handle => NO_WHITESPACE,
     :error_token => NO_WHITESPACE,
+    :zero => /(0)(.*)/,
     :validation_model => NO_WHITESPACE,
     :mailbox => NO_WHITESPACE,
     :long_main_keyid => NO_WHITESPACE,
@@ -80,14 +81,26 @@ module GPGStatusParser::Arguments
     argument_string = argument_string.strip
 
     return [nil, nil] if argument_string.empty?
+
+    optional = false
+    if argument_string[0] == "["
+      optional = true
+      argument_string = /[ ]*\[(.*)[ ]*\][ ]*$/.match(argument_string)[1]
+    end
     
-    raise "Optional Args not yet supported" if argument_string[0] == "["
 
     matches = /<([^>]+)>(.*)/.match(argument_string)
-    arg = matches[1].gsub(/[ -]/,"_").intern
-    rest = matches[2]
 
-    [arg, rest]
+    # make ruby-friendly symbols
+    arg = matches[1].gsub(/[ -]/,"_")
+    arg = arg.intern
+
+    rest = matches[2]
+    
+    result = [arg, rest]
+    result << :optional if optional
+
+    result
   end
   
   def self.extract_expected_arguments argument_string
@@ -111,12 +124,21 @@ module GPGStatusParser::Arguments
     while first
       extract_re = ARGUMENTS[first]
       match = extract_re.match(argument_value_string)
-      results << match[1]
-      argument_value_string = match[2]
-      first, rest = rest[0], rest[1..-1]
+
+      if match.nil?
+        results << ""
+        argument_value_string = ""
+        first = nil
+        rest = nil
+      else
+        results << match[1]
+        argument_value_string = match[2]
+        first, rest = rest[0], rest[1..-1]
+      end
+      
     end
     
-    raise "Acutal args didnt match expected" if expected_args.length != results.length
+    # raise "Acutal args didnt match expected" if expected_args.length != results.length
     raise "Acutal args didnt match expected" if argument_value_string && argument_value_string.length > 0
 
     Hash[expected_args.zip(results)]
