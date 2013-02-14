@@ -7,7 +7,7 @@ module GPGStatusParser
     :REVKEYSIG => "<long_keyid_or_fpr>  <username>",
     :BADSIG => "<long_keyid_or_fpr>  <username>",
     :ERRSIG => "<keyid>  <pkalgo> <hashalgo> <sig_class> <time> <rc>",
-    :VALIDSIG => "<args>",
+    :VALIDSIG => "<fingerprint_in_hex> <sig_creation_date> <sig-timestamp> <expire-timestamp> <sig-version> <reserved> <pubkey-algo> <hash-algo> <sig-class> [ <primary-key-fpr> ]",
     :SIG_ID => "<radix64_string>  <sig_creation_date>  <sig-timestamp>",
     :ENC_TO => "<long_keyid>  <keytype>  <keylength>",
     :BEGIN_DECRYPTION => "",
