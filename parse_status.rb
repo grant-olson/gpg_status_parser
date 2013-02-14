@@ -8,14 +8,11 @@ File.open("status.txt").readlines.each do |line|
   puts "#{status.status} #{status.args.inspect}"
 end
 
-GPGStatusParser::STATUS_CODES.each_pair do |key, val|
-  begin
-    puts "Extracting from #{key}..."
-    puts GPGStatusParser::Arguments.extract_expected_arguments(val).inspect
-  rescue Exception => ex
-    puts "PASS #{ex.message}"
-  end
-  
-  
-end
+#GPGStatusParser::STATUS_CODES.each_pair do |key, val|
+#  begin
+#    puts GPGStatusParser::Arguments.extract_expected_arguments(val).inspect
+#  rescue Exception => ex
+#    puts "PASS #{ex.message}"
+#  end
+# end
   
