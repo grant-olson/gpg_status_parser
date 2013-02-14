@@ -4,6 +4,9 @@ module GPGStatusParser::Arguments
   # argument value and the rest minus whitespace
   NO_WHITESPACE = /([^\s]+)(.*)?/
   USERNAME = /(.+)()$/
+  HEX = /([A-Z0-9]+)(.*)?/
+  NUMBER = /(\d+)(.*)?/
+  DATE = /(\d\d\d\d-\d\d-\d\d)(.*)?/
 
   ARGUMENTS = {
     :long_keyid_or_fpr => NO_WHITESPACE,
@@ -16,9 +19,9 @@ module GPGStatusParser::Arguments
     :rc => NO_WHITESPACE,
     :args => NO_WHITESPACE,
     :radix64_string => NO_WHITESPACE,
-    :sig_creation_date => NO_WHITESPACE,
-    :sig_version => NO_WHITESPACE,
-    :sig_timestamp => NO_WHITESPACE,
+    :sig_creation_date => DATE,
+    :sig_version => NUMBER,
+    :sig_timestamp => NUMBER,
     :long_keyid => NO_WHITESPACE,
     :keytype => NO_WHITESPACE,
     :keylength => NO_WHITESPACE,
@@ -31,7 +34,7 @@ module GPGStatusParser::Arguments
     :long_keyid => NO_WHITESPACE,
     :type => NO_WHITESPACE,
     :pk_algo => NO_WHITESPACE,
-    :hash_algo => NO_WHITESPACE,
+    :hash_algo => NUMBER,
     :class => NO_WHITESPACE,
     :timestamp => NO_WHITESPACE,
     :keyfpr => NO_WHITESPACE,
@@ -42,14 +45,14 @@ module GPGStatusParser::Arguments
     :arguments => NO_WHITESPACE,
     :flags => NO_WHITESPACE,
     :len => NO_WHITESPACE,
-    :pubkey_algo => NO_WHITESPACE,
+    :pubkey_algo => NUMBER,
     :data => NO_WHITESPACE,
-    :reserved => NO_WHITESPACE,
-    :expire_timestamp => NO_WHITESPACE,
-    :long_keyid => NO_WHITESPACE,
-    :fingerprint => NO_WHITESPACE,
-    :primary_key_fpr => NO_WHITESPACE,
-    :fingerprint_in_hex => NO_WHITESPACE,
+    :reserved => NUMBER,
+    :expire_timestamp => NUMBER,
+    :long_keyid => HEX,
+    :fingerprint => HEX,
+    :primary_key_fpr => HEX,
+    :fingerprint_in_hex => HEX,
     :handle => NO_WHITESPACE,
     :error_token => NO_WHITESPACE,
     :zero => /(0)(.*)/,
