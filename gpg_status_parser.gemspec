@@ -6,7 +6,8 @@ Gem::Specification.new do |s|
   s.description = ""
   s.authors = ["Grant T. Olson"]
   s.email = "kgo@grant-olson.net"
-  s.files = ["Rakefile",
+  s.files = ["LICENSE",
+             "Rakefile",
              "lib/gpg_status_parser.rb",
              "lib/gpg_status_parser/status_codes.rb",
              "lib/gpg_status_parser/arguments.rb"]
@@ -15,4 +16,5 @@ Gem::Specification.new do |s|
                   "test/test_arguments.rb"
                  ]
   s.homepage = "https://github.com/grant-olson/gpg_status_parser"
+  s.license = "BSD 3 Clause"
 end
