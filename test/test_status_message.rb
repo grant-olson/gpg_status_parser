@@ -51,7 +51,17 @@ class StatusMessageTest < Test::Unit::TestCase
 
     assert (msg.status == :TRUST_ULTIMATE), "expected :TRUST_ULTIMATE"
 
-    args = {:zero=>"", :validation_model=>nil}
+    args = {}
+    assert (msg.args == args), "#{msg.args.inspect}"
+  end
+  
+  def test_trust_ultimate_optional_args
+    unparsed_msg = "[GNUPG:] TRUST_ULTIMATE 0 foo"
+    msg = GPGStatusParser::StatusMessage.new(unparsed_msg)
+
+    assert (msg.status == :TRUST_ULTIMATE), "expected :TRUST_ULTIMATE"
+
+    args = {:zero => "0", :validation_model => "foo"}
     assert (msg.args == args), "#{msg.args.inspect}"
   end
   
@@ -104,7 +114,17 @@ class StatusMessageTest < Test::Unit::TestCase
 
     assert (msg.status == :TRUST_UNDEFINED), "Expected TRUST_UNDEFINED"
 
-    args = {:error_token=>""}
+    args = {}
+    assert (msg.args == args), "#{msg.args.inspect}"
+  end
+  
+  def test_trust_undefined_with_token
+    unparsed_msg = "[GNUPG:] TRUST_UNDEFINED foo"
+    msg = GPGStatusParser::StatusMessage.new(unparsed_msg)
+
+    assert (msg.status == :TRUST_UNDEFINED), "Expected TRUST_UNDEFINED"
+
+    args = {:error_token=>"foo"}
     assert (msg.args == args), "#{msg.args.inspect}"
   end
   

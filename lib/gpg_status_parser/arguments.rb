@@ -144,6 +144,9 @@ module GPGStatusParser::Arguments
     # raise "Acutal args didnt match expected" if expected_args.length != results.length
     raise "Acutal args didnt match expected" if argument_value_string && argument_value_string.length > 0
 
-    Hash[expected_args.zip(results)]
+    # Delete unspecified optional args
+    args = Hash[expected_args.zip(results)]
+    args.delete_if {|key,val| val.nil? || val.empty?}
+    args
   end
 end
