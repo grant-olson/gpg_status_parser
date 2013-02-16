@@ -27,37 +27,44 @@ class MainApiTest < Test::Unit::TestCase
       GPGStatusParser.parse_line("[GNUPG:] X509SIG_ID jRWzDyjdbbGjvn9nNJJxF7HA7MA 2013-02-10 1360499004")
     end
   end
-  
-  def test_parse_no_block
-    status_text = <<STATUS
+
+  STATUS_TEXT = <<STATUS
 [GNUPG:] PLAINTEXT 74 0 
 [GNUPG:] SIG_ID jRWzDyjdbbGjvn9nNJJxF7HA7MA 2013-02-10 1360499004
 [GNUPG:] GOODSIG 703B0C0E25D38721 Test User <test@example.org>
 [GNUPG:] VALIDSIG B2AE14D84135BA08C0FC27C7703B0C0E25D38721 2013-02-10 1360499004 0 4 0 1 2 01 B2AE14D84135BA08C0FC27C7703B0C0E25D38721
 [GNUPG:] TRUST_ULTIMATE
 STATUS
-
-    status_file = StringIO.new(status_text)
+  
+  def test_parse_no_block
+    status_file = StringIO.new(STATUS_TEXT)
     res = GPGStatusParser.parse(status_file).map{|msg| msg.status}
     good_res = [:PLAINTEXT, :SIG_ID, :GOODSIG, :VALIDSIG, :TRUST_ULTIMATE]
     assert (res == good_res), "Results didn't match expected"
   end
   
   def test_parse_block
-    status_text = <<STATUS
-[GNUPG:] PLAINTEXT 74 0 
-[GNUPG:] SIG_ID jRWzDyjdbbGjvn9nNJJxF7HA7MA 2013-02-10 1360499004
-[GNUPG:] GOODSIG 703B0C0E25D38721 Test User <test@example.org>
-[GNUPG:] VALIDSIG B2AE14D84135BA08C0FC27C7703B0C0E25D38721 2013-02-10 1360499004 0 4 0 1 2 01 B2AE14D84135BA08C0FC27C7703B0C0E25D38721
-[GNUPG:] TRUST_ULTIMATE
-STATUS
     good_res = [:PLAINTEXT, :SIG_ID, :GOODSIG, :VALIDSIG, :TRUST_ULTIMATE].reverse
 
-    status_file = StringIO.new(status_text)
+    status_file = StringIO.new(STATUS_TEXT)
     res = GPGStatusParser.parse(status_file) do |msg|
       assert (msg.status == good_res.pop), "Didn't match expected status"
     end
-    
   end
+
+  def test_parse_string_no_block
+    res = GPGStatusParser.parse(STATUS_TEXT).map{|msg| msg.status}
+    good_res = [:PLAINTEXT, :SIG_ID, :GOODSIG, :VALIDSIG, :TRUST_ULTIMATE]
+    assert (res == good_res), "Results didn't match expected"
+  end
+  
+  def test_parse_string_block
+    good_res = [:PLAINTEXT, :SIG_ID, :GOODSIG, :VALIDSIG, :TRUST_ULTIMATE].reverse
+
+    res = GPGStatusParser.parse(STATUS_TEXT) do |msg|
+      assert (msg.status == good_res.pop), "Didn't match expected status"
+    end
+  end
+
   
 end
