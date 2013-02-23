@@ -51,7 +51,7 @@ module GPGStatusParser
     :GET_LINE => "",
     :GET_HIDDEN => "",
     :GOT_IT => "",
-    :USERID_HINT => "<long main keyid> <string>",
+    :USERID_HINT => "<long main keyid> <username>",
     :NEED_PASSPHRASE => "<long keyid> <long main keyid> <keytype> <keylength>",
     :NEED_PASSPHRASE_SYM => "<cipher_algo> <s2k_mode> <s2k_hash>",
     :NEED_PASSPHRASE_PIN => "<card_type> <chvno> [<serialno>]",

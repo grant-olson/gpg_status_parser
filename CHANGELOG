@@ -1,3 +1,5 @@
+* USERID_HINT didn't have the right args.
+
 0.2.0 - 2013-02-16
 ==================
 
