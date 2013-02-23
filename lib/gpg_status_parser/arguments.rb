@@ -157,9 +157,10 @@ module GPGStatusParser::Arguments
       
     end
     
-    # raise "Acutal args didnt match expected" if expected_args.length != results.length
-    raise "Actual args didnt match expected.  Extra stuff #{argument_value_string.inspect}" if argument_value_string && argument_value_string.length > 0
-
+    if argument_value_string && argument_value_string.length > 0
+      warn "Actual args didnt match expected.  Extra stuff #{argument_value_string.inspect}"
+    end
+    
     # Delete unspecified optional args
     args = Hash[expected_args.zip(results)]
     args.delete_if {|key,val| val.nil? || val.empty?}
