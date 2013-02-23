@@ -19,7 +19,7 @@ module GPGStatusParser
       raise NotGPGStatus if match.nil?
 
       @status = match[1].intern
-      raise InvalidStatus if !STATUS_CODES.keys.include?(@status)
+      raise InvalidStatus, @status if !STATUS_CODES.keys.include?(@status)
 
       expected_arg_string = GPGStatusParser::STATUS_CODES[@status]
       expected_args = GPGStatusParser::Arguments.extract_expected_arguments(expected_arg_string)
