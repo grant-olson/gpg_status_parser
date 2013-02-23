@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "gpg_status_parser"
-  s.version = "0.3.0"
+  s.version = "0.4.0.pre"
   s.date = "2013-02-23"
   s.summary = "Turns gpg status messages into ruby objects."
   s.description = "Turns structured status messages provided by gpg into ruby objects for easy manipulation in your code."
