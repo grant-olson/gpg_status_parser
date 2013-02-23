@@ -1,3 +1,6 @@
+0.3.0 - 2013-02-23
+==================
+
 * Warning when the args don't match instead of total failure.
 
 * Fixed error where we couldn't process IMPORT_RES.
