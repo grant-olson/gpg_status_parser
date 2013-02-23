@@ -35,6 +35,7 @@ module GPGStatusParser
     :NO_RECP => "<reserved>",
     :NO_SGNR => "<reserved>",
     :KEYEXPIRED => "<expire-timestamp>",
+    :SIGEXPIRED => "",
     :KEYREVOKED => "",
     :NO_PUBKEY => "<long keyid>",
     :NO_SECKEY => "<long keyid>",
