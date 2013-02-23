@@ -1,3 +1,5 @@
+* Fixed error where we couldn't process IMPORT_RES.
+
 * Show leftover text when we throw actual args error.
 
 * USERID_HINT didn't have the right args.

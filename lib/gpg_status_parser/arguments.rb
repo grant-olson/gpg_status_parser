@@ -78,7 +78,23 @@ module GPGStatusParser::Arguments
     :cur => NO_WHITESPACE,
     :total => NO_WHITESPACE,
     :fname => NO_WHITESPACE,
-    :pid => NO_WHITESPACE}
+    :pid => NO_WHITESPACE,
+    :count => NUMBER,
+    :no_user_id => NUMBER,
+    :imported => NUMBER,
+    :imported_rsa => NUMBER,
+    :unchanged => NUMBER,
+    :n_uids => NUMBER,
+    :n_sigs => NUMBER,
+    :n_subk => NUMBER,
+    :n_revoc => NUMBER,
+    :sec_read => NUMBER,
+    :sec_imported => NUMBER,
+    :sec_dups => NUMBER,
+    :skipped_new_keys => NUMBER,
+    :not_imported => NUMBER
+  }
+  
 
   def self.extract_expected_argument argument_string
     argument_string = argument_string.strip

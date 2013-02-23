@@ -62,7 +62,7 @@ module GPGStatusParser
     :IMPORTED => "<long keyid>  <username>",
     :IMPORT_OK => "<reason> [<fingerprint>]",
     :IMPORT_PROBLEM => "<reason> [<fingerprint>]",
-    :IMPORT_RES => "<args>",
+    :IMPORT_RES => "<count> <no_user_id> <imported> <imported_rsa> <unchanged> <n_uids> <n_subk> <n_sigs> <n_revoc> <sec_read> <sec_imported> <sec_dups> <skipped_new_keys> <not_imported>",
     :CARDCTRL => "<what> [<serialno>]",
     :SC_OP_FAILURE => "[<code>]",
     :SC_OP_SUCCESS => "",
