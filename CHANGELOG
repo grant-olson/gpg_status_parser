@@ -1,3 +1,6 @@
+* GPGStatusParser.run_gpg takes care of setup/teardown of various
+  temporary files.
+
 0.3.0 - 2013-02-23
 ==================
 
